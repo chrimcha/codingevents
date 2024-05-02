@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,25 +18,28 @@ import java.util.List;
 @RequestMapping("events")
 public class EventController {
 
-    // this static list variable is shared with all the class, and can be used/accessed by all the methods in this class
-    private static List<String> events = new ArrayList<>();
+    private static HashMap<String, String> events = new HashMap<>();
 
     @GetMapping
     public String displayAllEvents(Model model) {
+        events.put("Menteaship","A fun meetup for connecting with mentors");
+        events.put("Code With Pride","A fun meetup sponsored by LaunchCode");
+        events.put("Javascripty", "An imaginary meetup for Javascript developers");
+        model.addAttribute("title", "All Events");
         model.addAttribute("events", events);
         return "events/index";
     }
 
-    // lives at /events/create
     @GetMapping("create")
-    public String renderCreateEventForm() {
+    public String displayCreateEventForm(Model model) {
+        model.addAttribute("title", "Create Event");
         return "events/create";
     }
 
-    // lives at /events/create
     @PostMapping("create")
-    public String createEvent(@RequestParam String eventName) {
-        events.add(eventName);
-        return "redirect:/events"; // redirects to root /events
+    public String processCreateEventForm(@RequestParam String eventName, String eventDescription) {
+        events.put(eventName, eventDescription);
+        return "redirect:/events";
     }
+
 }
