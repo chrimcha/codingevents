@@ -7,12 +7,14 @@
 
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th>Name</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
     </thead>
     <tr th:each="event : ${events}">
         <td th:text="${event.name}"></td>
+        <td th:text="${event.description}"></td>
     </tr>
 </table>
 
