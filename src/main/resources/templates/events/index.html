@@ -1,29 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
 
-<h1 class="text-center">All Events</h1>
-
-<nav th:replace="fragments :: header"></nav>
-
-<p th:unless="${events} and ${events.size()}">No Events!</p>
+<header th:replace="fragments :: header"></header>
 
 <table class="table table-striped">
     <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Address</th>
-            <th scope="col">Images</th>
-        </tr>
+    <tr>
+        <th>Name</th>
+    </tr>
     </thead>
-    <tr th:each="event : ${events.entrySet()}">
-        <td th:text="${event.getKey()}"></td>
-        <td th:text="${event.getValue()}"></td>
-        <td th:fragment="address">1234 5th Street</td>
-        <td class="w-25">
-            <img src="https://img.freepik.com/free-photo/programming-background-with-person-working-with-codes-computer_23-2150010125.jpg?size=626&ext=jpg&ga=GA1.1.1224184972.1714521600&semt=sph" class="img-fluid img-thumbnail" alt="coding on computer">
+    <tr th:each="event : ${events}">
+        <td th:text="${event.name}"></td>
     </tr>
 </table>
 
