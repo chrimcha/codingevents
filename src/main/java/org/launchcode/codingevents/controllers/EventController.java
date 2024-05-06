@@ -1,3 +1,4 @@
+
 package org.launchcode.codingevents.controllers;
 
 import org.launchcode.codingevents.models.Event;
@@ -34,7 +35,8 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public String processCreateEventForm(@RequestParam String eventName, String eventDescription) {
+    public String processCreateEventForm(@RequestParam String eventName,
+                                         @RequestParam String eventDescription) {
         events.add(new Event(eventName, eventDescription));
         return "redirect:/events";
     }
