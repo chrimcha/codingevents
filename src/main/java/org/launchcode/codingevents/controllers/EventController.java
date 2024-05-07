@@ -6,9 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Chris Bay
  */
@@ -32,6 +29,30 @@ public class EventController {
     @PostMapping("create")
     public String processCreateEventForm(@ModelAttribute Event newEvent) {
         EventData.add(newEvent);
+        return "redirect:/events";
+    }
+
+    @GetMapping("edit/{eventId}")
+    public String displayEditForm(Model model, @PathVariable int eventId) {
+        //controller code will be here
+        Event eventToEdit = EventData.getById(eventId);
+        model.addAttribute("event", eventToEdit);
+
+        String title = "Edit Event '" + eventToEdit.getName() + "' (id= " + eventToEdit.getId() + ")";
+
+        model.addAttribute("title", title);
+
+        return "events/edit";
+    }
+
+    @PostMapping("edit")
+    public String processEditForm(int eventId, String name, String description) {
+        //controller code will be here
+        Event eventToEdit = EventData.getById(eventId);
+
+        eventToEdit.setName(name);
+        eventToEdit.setDescription(description);
+
         return "redirect:/events";
     }
 
