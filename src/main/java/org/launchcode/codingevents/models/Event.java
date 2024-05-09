@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 
@@ -17,16 +15,28 @@ public class Event {
     @NotBlank(message = "Name is required!")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters!")
     private String name;
+    @NotBlank(message = "Location cannot be left blank!")
+    @NotNull(message = "Location cannot be Null!")
+    private String eventLocation;
     @Size(max = 500, message = "Message too long!")
     private String description;
+    @NotNull(message = "Must provide number of attendees!")
+    @Positive(message = "Must have at least 1 attendee!")
+    private int numberOfAttendees;
+    @AssertTrue(message = "Must be registered!")
+    @NotNull(message = "Registration cannot be left blank!")
+    private Boolean registered;
     @NotBlank(message = "Email is required!")
     @Email(message = "Invalid email.Try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    public Event(String name, String eventLocation, String description, int numberOfAttendees, Boolean registered, String contactEmail) {
         this();
         this.name = name;
+        this.eventLocation = eventLocation;
         this.description = description;
+        this.numberOfAttendees = numberOfAttendees;
+        this.registered = registered;
         this.contactEmail = contactEmail;
     }
 
@@ -57,6 +67,30 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getEventLocation() {
+        return eventLocation;
+    }
+
+    public void setEventLocation(String eventLocation) {
+        this.eventLocation = eventLocation;
+    }
+
+    public Boolean getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(Boolean registered) {
+        this.registered = registered;
+    }
+
+    public int getNumberOfAttendees() {
+        return numberOfAttendees;
+    }
+
+    public void setNumberOfAttendees(int numberOfAttendees) {
+        this.numberOfAttendees = numberOfAttendees;
     }
 
     public int getId() {
